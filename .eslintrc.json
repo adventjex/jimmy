@@ -1,0 +1,15 @@
+{
+  "extends": ["airbnb-base", "react"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "no-console": "off",
+    "react/jsx-filename-extension": "off",
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "always"]
+  }
+}
