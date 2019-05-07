@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Utility from './Utility';
+import gameLogic from './gameLogic';
 
-const { resetBoardData } = Utility;
+const { createBoard, resetBoardData } = gameLogic;
 
 function TicTacToe() {
-  const [boardData, setBoardData] = useState([]);
+  const [boardData, setBoardData] = useState([[]]);
+
   useEffect(() => {
     const blankBoard = resetBoardData();
     setBoardData(blankBoard);
   }, []);
 
-  function createBoard() {
-    return (
-      <p>{boardData}</p>
-    );
-  }
-
   return (
     <div className="tic_tac_toe">
-      {createBoard()}
+      {createBoard(boardData)}
     </div>
   );
 }
