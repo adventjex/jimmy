@@ -80,7 +80,7 @@ function TicTacToe() {
 
   return (
     <div className="tic_tac_toe">
-      <div className="board">{createBoard(boardData)}</div>
+      <div className="board">{createBoard()}</div>
     </div>
   );
 }

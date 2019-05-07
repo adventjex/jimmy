@@ -76,19 +76,38 @@ function checkMiddleTile(row, col, boardData) {
   if (checkRow(row, boardData)) {
     return true;
   }
+  if (checkColumn(col, boardData)) {
+    return true;
+  }
 }
 
 /**
  * checkRow will check the entire row to see if it's a match
  * only needs to check for one row
  * @param {Number} row
- * @param {Number} col
+ * @param {2D Array} boardData
  */
 function checkRow(row, boardData) {
   const rowToCheck = boardData[row];
   const firstTileToCheck = rowToCheck[0];
   for (let i = 1; i < GAME_SIZE; i += 1) {
     if (firstTileToCheck !== rowToCheck[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * checkColumn will check the entire column to see if it's a match
+ * only needs to check for one column
+ * @param {Number} col
+ * @param {2D Array} boardData
+ */
+function checkColumn(col, boardData) {
+  const firstTileToCheck = boardData[0][col];
+  for (let i = 1; i < GAME_SIZE; i += 1) {
+    if (firstTileToCheck !== boardData[i][col]) {
       return false;
     }
   }
