@@ -1,0 +1,22 @@
+.tic_tac_toe {
+  text-align: center;
+  margin: 100px 0px; }
+  .tic_tac_toe .board {
+    display: inline-block;
+    background: #5abdbc;
+    margin: 0 auto;
+    padding: 20px 150px; }
+  .tic_tac_toe .tile {
+    float: left;
+    width: 50px;
+    height: 50px;
+    background: #6ddfde;
+    margin: 5px 5px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 4px;
+    color: #ffffff;
+    -webkit-box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1); }
