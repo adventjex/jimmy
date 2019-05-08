@@ -1,7 +1,7 @@
 import * as CONSTANT from './Constants';
 import winConditions from './winConditions';
 
-const { checkMiddleTile } = winConditions;
+const { checkMiddleAndCornerTiles, checkSideTile } = winConditions;
 
 const {
   GAME_SIZE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
@@ -36,9 +36,16 @@ const gameLogic = {
     // based on tile position, it will call a function to check
     switch (tilePosition) {
     case MIDDLE_TILE:
-      isMatchComplete = checkMiddleTile(row, col, boardData);
+      isMatchComplete = checkMiddleAndCornerTiles(row, col, boardData, MIDDLE_TILE);
+      break;
+    case CORNER_TILE:
+      isMatchComplete = checkMiddleAndCornerTiles(row, col, boardData, CORNER_TILE);
+      break;
+    case SIDE_TILE:
+      isMatchComplete = checkSideTile(row, col, boardData);
       break;
     default:
+      isMatchComplete = false;
       break;
     }
     return isMatchComplete;

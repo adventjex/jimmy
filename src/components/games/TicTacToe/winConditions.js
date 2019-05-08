@@ -1,29 +1,41 @@
 import * as CONSTANT from './Constants';
 
 const {
-  GAME_SIZE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
+  GAME_SIZE, MIDDLE_TILE,
 } = CONSTANT;
 
 const winConditions = {
   /**
-   * checkMiddleTile will checkRow, checkCol, checkDiagonal
+   * checkMiddleAndCornerTiles will checkRow, checkCol, checkDiagonal
+   * if it's a corner tile, you only need to check one row, one column, one diagonal
+   * if it's a middle tile, you need to check one row, one column, two diagonals
    * @param {Number} row
    * @param {Number} col
-   * @param {2D Array} boardData
+   * @param {Array} boardData
+   * @param {String} tileType
    */
-  checkMiddleTile: (row, col, boardData) => {
-    if (checkRow(row, boardData)) {
+  checkMiddleAndCornerTiles: (row, col, boardData, tileType) => {
+    if (
+      checkRow(row, boardData) ||
+      checkColumn(col, boardData) ||
+      checkDiagonal(row, col, boardData, tileType)
+    ) {
       return true;
     }
+    return false;
+  },
 
-    if (checkColumn(col, boardData)) {
+  /**
+   * checkSideTile will checkRow, checkCol
+   * if it's a side tile, you only need to check one row and one column
+   * @param {Number} row
+   * @param {Number} col
+   * @param {Array} boardData
+   */
+  checkSideTile: (row, col, boardData) => {
+    if (checkRow(row, boardData) || checkColumn(col, boardData)) {
       return true;
     }
-
-    if (checkDiagonal(row, col, boardData, MIDDLE_TILE)) {
-      return true;
-    }
-
     return false;
   },
 };
@@ -32,7 +44,7 @@ const winConditions = {
  * checkRow will check the entire row to see if it's a match
  * only needs to check for one row
  * @param {Number} row
- * @param {2D Array} boardData
+ * @param {Array} boardData
  */
 function checkRow(row, boardData) {
   const rowToCheck = boardData[row];
@@ -49,7 +61,7 @@ function checkRow(row, boardData) {
  * checkColumn will check the entire column to see if it's a match
  * only needs to check for one column
  * @param {Number} col
- * @param {2D Array} boardData
+ * @param {Array} boardData
  */
 function checkColumn(col, boardData) {
   const firstTileToCheck = boardData[0][col];
@@ -88,8 +100,33 @@ function checkDiagonal(row, col, boardData, tileType) {
   }
 }
 
-function checkDiagonalTopLeftToBottomRight(boardData) {}
+/**
+ * Check from the top left corner diagonally to bottom right
+ * @param {Array} boardData
+ */
+function checkDiagonalTopLeftToBottomRight(boardData) {
+  const firstTileToCheck = boardData[0][0];
+  for (let i = 1, j = 1; i < GAME_SIZE; i += 1, j += 1) {
+    if (firstTileToCheck !== boardData[i][j]) {
+      return false;
+    }
+    return true;
+  }
+}
 
-function checkDiagonalBottomLeftToTopRight(boardData) {}
+/**
+ * Check from the bottom left corner diagonally to top right
+ * @param {Array} boardData
+ */
+function checkDiagonalBottomLeftToTopRight(boardData) {
+  const lastRow = GAME_SIZE - 1;
+  const firstTileToCheck = boardData[lastRow][0];
+  for (let i = lastRow - 1, j = 1; i < GAME_SIZE; i -= 1, j += 1) {
+    if (firstTileToCheck !== boardData[i][j]) {
+      return false;
+    }
+    return true;
+  }
+}
 
 export default winConditions;

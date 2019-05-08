@@ -71,6 +71,9 @@ function TicTacToe() {
     setBoardData(newBoardData);
 
     const isMatchComplete = checkIfMatchComplete(row, col, boardData);
+    if (isMatchComplete) {
+      console.log('win');
+    }
     setPlayerTurn(nextTurn);
   }
 
