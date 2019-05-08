@@ -1,4 +1,7 @@
 import * as CONSTANT from './Constants';
+import winConditions from './winConditions';
+
+const { checkMiddleTile } = winConditions;
 
 const {
   GAME_SIZE, EMPTY_STATE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
@@ -64,54 +67,6 @@ function getTilePosition(row, col) {
   } else {
     return CORNER_TILE;
   }
-}
-
-/**
- * checkMiddleTile will checkRow, checkCol, checkDiagonal
- * @param {Number} row
- * @param {Number} col
- * @param {2D Array} boardData
- */
-function checkMiddleTile(row, col, boardData) {
-  if (checkRow(row, boardData)) {
-    return true;
-  }
-  if (checkColumn(col, boardData)) {
-    return true;
-  }
-}
-
-/**
- * checkRow will check the entire row to see if it's a match
- * only needs to check for one row
- * @param {Number} row
- * @param {2D Array} boardData
- */
-function checkRow(row, boardData) {
-  const rowToCheck = boardData[row];
-  const firstTileToCheck = rowToCheck[0];
-  for (let i = 1; i < GAME_SIZE; i += 1) {
-    if (firstTileToCheck !== rowToCheck[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/**
- * checkColumn will check the entire column to see if it's a match
- * only needs to check for one column
- * @param {Number} col
- * @param {2D Array} boardData
- */
-function checkColumn(col, boardData) {
-  const firstTileToCheck = boardData[0][col];
-  for (let i = 1; i < GAME_SIZE; i += 1) {
-    if (firstTileToCheck !== boardData[i][col]) {
-      return false;
-    }
-  }
-  return true;
 }
 
 export default gameLogic;
