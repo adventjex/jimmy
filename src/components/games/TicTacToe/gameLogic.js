@@ -4,13 +4,13 @@ import winConditions from './winConditions';
 const { checkMiddleTile } = winConditions;
 
 const {
-  GAME_SIZE, EMPTY_STATE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
+  GAME_SIZE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
 } = CONSTANT;
 
 const gameLogic = {
   /**
    * resetBoardData returns a blank board.
-   * Uses a double for loop to create a 2d array of EMPTY_STATE
+   * Uses a double for loop to create a 2d array of 0
    * @returns 2D Array
    */
   resetBoardData: () => {
@@ -18,7 +18,7 @@ const gameLogic = {
     for (let i = 0; i < GAME_SIZE; i += 1) {
       const boardRow = [];
       for (let j = 0; j < GAME_SIZE; j += 1) {
-        boardRow.push(EMPTY_STATE);
+        boardRow.push(0);
       }
       blankBoard.push(boardRow);
     }
@@ -32,6 +32,8 @@ const gameLogic = {
   checkIfMatchComplete: (row, col, boardData) => {
     const tilePosition = getTilePosition(row, col);
     let isMatchComplete;
+
+    // based on tile position, it will call a function to check
     switch (tilePosition) {
     case MIDDLE_TILE:
       isMatchComplete = checkMiddleTile(row, col, boardData);

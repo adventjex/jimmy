@@ -1,7 +1,4 @@
 import React from 'react';
-import * as CONSTANTS from './Constants';
-
-const { EMPTY_STATE, X_STATE, O_STATE } = CONSTANTS;
 
 /**
  * getTileImage uses a constant string to get the correct UI
@@ -10,13 +7,13 @@ const { EMPTY_STATE, X_STATE, O_STATE } = CONSTANTS;
 function getTileImage(tileData) {
   let tileImage;
   switch (tileData) {
-  case EMPTY_STATE:
+  case 0:
     tileImage = '';
     break;
-  case X_STATE:
+  case 1:
     tileImage = 'X';
     break;
-  case O_STATE:
+  case 2:
     tileImage = 'O';
     break;
   default:
@@ -36,13 +33,13 @@ function getTileImage(tileData) {
  */
 function Tile(props) {
   const {
-    tileData, continueTurn, row, col,
+    tileData, onSelectTile, row, col,
   } = props;
   const tileImage = getTileImage(tileData);
 
   function checkSelectTile() {
-    if (tileData === EMPTY_STATE) {
-      continueTurn(row, col);
+    if (tileData === 0) {
+      onSelectTile(row, col);
     }
   }
   return <div className="tile" onClick={() => checkSelectTile()}>{tileImage}</div>;

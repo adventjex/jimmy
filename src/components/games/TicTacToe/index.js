@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import * as CONSTANTS from './Constants';
 import gameLogic from './gameLogic';
 import Tile from './Tile';
 import '../../../styles/css/tic-tac-toe.css';
 
 const { checkIfMatchComplete, resetBoardData } = gameLogic;
-const {
-  X_STATE, O_STATE, X_TURN, O_TURN,
-} = CONSTANTS;
 
 /**
  * TicTacToe main component
  */
 function TicTacToe() {
   const [boardData, setBoardData] = useState([[]]);
-  const [playerTurn, setPlayerTurn] = useState(X_TURN);
+  const [playerTurn, setPlayerTurn] = useState(1);
 
   useEffect(() => {
     const blankBoard = resetBoardData();
@@ -30,7 +26,7 @@ function TicTacToe() {
       const boardRow = [];
       for (let j = 0; j < boardData[i].length; j += 1) {
         const tileData = boardData[i][j];
-        boardRow.push(<Tile key={`${j}-col`} tileData={tileData} continueTurn={continueTurn} row={i} col={j} />);
+        boardRow.push(<Tile key={`${j}-${i}-tile`} tileData={tileData} onSelectTile={onSelectTile} row={i} col={j} />);
       }
       boardView.push(
         <div className="row" key={`${i}-row`}>
@@ -47,16 +43,16 @@ function TicTacToe() {
    * @param {Number} row
    * @param {Number} col
    */
-  function selectTile(row, col) {
+  function changeTile(row, col) {
     const newBoardData = boardData.slice();
     let newState;
     let nextTurn;
-    if (playerTurn === X_TURN) {
-      newState = X_STATE;
-      nextTurn = O_TURN;
+    if (playerTurn === 1) {
+      newState = 1;
+      nextTurn = 2;
     } else {
-      newState = O_STATE;
-      nextTurn = X_TURN;
+      newState = 2;
+      nextTurn = 1;
     }
     newBoardData[row][col] = newState;
     return {
@@ -70,8 +66,8 @@ function TicTacToe() {
    * @param {Number} row
    * @param {Number} col
    */
-  function continueTurn(row, col) {
-    const { newBoardData, nextTurn } = selectTile(row, col);
+  function onSelectTile(row, col) {
+    const { newBoardData, nextTurn } = changeTile(row, col);
     setBoardData(newBoardData);
 
     const isMatchComplete = checkIfMatchComplete(row, col, boardData);

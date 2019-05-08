@@ -1,7 +1,7 @@
 import * as CONSTANT from './Constants';
 
 const {
-  GAME_SIZE, EMPTY_STATE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
+  GAME_SIZE, MIDDLE_TILE, SIDE_TILE, CORNER_TILE,
 } = CONSTANT;
 
 const winConditions = {
@@ -72,9 +72,7 @@ function checkColumn(col, boardData) {
 function checkDiagonal(row, col, boardData, tileType) {
   // if it's the middle tile, you check both diagonals
   if (tileType === MIDDLE_TILE) {
-    if (checkDiagonalTopLeftToBottomRight(boardData)) {
-      return true;
-    } else if (checkDiagonalBottomLeftToTopRight(boardData)) {
+    if (checkDiagonalTopLeftToBottomRight(boardData) || checkDiagonalBottomLeftToTopRight(boardData)) {
       return true;
     } else {
       return false;
